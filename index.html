@@ -10,6 +10,7 @@ body {
   background: pink;
   text-align: center;
   padding-top: 100px;
+  overflow: hidden; /* so hearts stay visible */
 }
 
 h1 {
@@ -40,8 +41,25 @@ button {
   margin-top: 30px;
   font-weight: bold;
 }
-</style>
 
+/* Hearts animation */
+.heart {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: url('https://i.gifer.com/origin/9e/9e2b0b5a6e1f9c3a36d479f19c06ce39_w200.gif') no-repeat center;
+  background-size: contain;
+  animation: bounce 3s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0) scale(1); }
+  25%  { transform: translateY(-30px) scale(1.1); }
+  50%  { transform: translateY(0) scale(1); }
+  75%  { transform: translateY(-15px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+</style>
 </head>
 
 <body>
@@ -53,7 +71,7 @@ button {
 
 <p id="loveMessage"></p>
 
-<!-- Background Music (Starts at Chorus) -->
+<!-- Background Music -->
 <iframe
   id="music"
   width="0"
@@ -64,11 +82,15 @@ button {
 
 <script>
 function startMusic() {
+  // Play music
   document.getElementById("music").src =
-  "https://www.youtube.com/embed/cNGjD0VG4R8?autoplay=1&loop=1&playlist=cNGjD0VG4R8&start=63";
+    "https://www.youtube.com/embed/cNGjD0VG4R8?autoplay=1&loop=1&playlist=cNGjD0VG4R8&start=63";
 
-  // Display message on the page
+  // Show message
   document.getElementById("loveMessage").textContent = "I LOVE YOU, DARLING LOVE!!!";
+
+  // Create hearts
+  createHearts();
 }
 
 function moveButton(button) {
@@ -77,6 +99,26 @@ function moveButton(button) {
   button.style.position = "absolute";
   button.style.left = x + "px";
   button.style.top = y + "px";
+}
+
+function createHearts() {
+  const numberOfHearts = 30; // number of hearts
+  for (let i = 0; i < numberOfHearts; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+
+    // Random position
+    heart.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+    heart.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+
+    // Random animation delay so hearts bounce at different times
+    heart.style.animationDelay = (Math.random() * 2) + 's';
+
+    document.body.appendChild(heart);
+
+    // Remove heart after 10 seconds
+    setTimeout(() => heart.remove(), 10000);
+  }
 }
 </script>
 
