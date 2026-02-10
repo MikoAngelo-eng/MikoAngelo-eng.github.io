@@ -33,6 +33,13 @@ button {
 .no {
   background-color: white;
 }
+
+#loveMessage {
+  font-size: 28px;
+  color: darkred;
+  margin-top: 30px;
+  font-weight: bold;
+}
 </style>
 
 </head>
@@ -44,7 +51,9 @@ button {
 <button class="yes" onclick="startMusic()">Yes 💕</button>
 <button class="no" onmouseover="moveButton(this)">No 💔</button>
 
-<!-- Background Music (Perfect - Ed Sheeran via YouTube) -->
+<p id="loveMessage"></p>
+
+<!-- Background Music (Starts at Chorus) -->
 <iframe
   id="music"
   width="0"
@@ -56,8 +65,10 @@ button {
 <script>
 function startMusic() {
   document.getElementById("music").src =
-  "https://www.youtube.com/embed/ZycMJWv2vtY?autoplay=1&loop=1&playlist=ZycMJWv2vtY";
-  alert("Yay! I knew it 😍💖");
+  "https://www.youtube.com/embed/ZycMJWv2vtY?autoplay=1&loop=1&playlist=ZycMJWv2vtY&start=63";
+
+  // Display message on the page
+  document.getElementById("loveMessage").textContent = "I LOVE YOU, DARLING LOVE!!!";
 }
 
 function moveButton(button) {
